@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Saúde & Bem-Estar – Zênite</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bar:#156B3C;--acc:#1E8C50;--bg:#F7FAF7;
+  --text:#1A3020;--muted:rgba(20,60,30,.6);--dim:rgba(20,60,30,.35);
+  --card:rgba(30,140,80,.08);--brd:rgba(30,140,80,.18)
+}
+html{font-size:clamp(12px,1.5vw,22px)}
+body{background:var(--bg);color:var(--text);font-family:"Helvetica Neue",Arial,sans-serif;
+  width:100vw;height:100vh;display:flex;flex-direction:column;overflow:hidden;
+  -webkit-text-size-adjust:100%}
+.bar{height:7vh;min-height:44px;max-height:72px;background:var(--bar);
+  display:flex;align-items:center;justify-content:space-between;padding:0 3vw;
+  flex-shrink:0;border-bottom:1px solid rgba(30,140,80,.2);position:relative;z-index:10}
+.brand{display:flex;align-items:center;gap:.6vw}
+.brand-dot{width:.7vw;height:.7vw;min-width:6px;min-height:6px;border-radius:50%;background:#1E8C50;opacity:.85}
+.brand-name{font-size:clamp(11px,1.1vw,18px);font-weight:800;letter-spacing:.35vw;color:var(--text);text-transform:uppercase}
+.brand-sep{color:rgba(20,60,30,.25);margin:0 .3vw}
+.brand-sub{font-size:clamp(8px,.8vw,13px);letter-spacing:.25vw;color:rgba(20,60,30,.5);text-transform:uppercase}
+.bar-title{font-size:clamp(9px,.85vw,14px);letter-spacing:.3vw;color:rgba(20,60,30,.5);text-transform:uppercase}
+.clock-box{display:flex;flex-direction:column;align-items:flex-end;gap:.2vh}
+.clock{font-size:clamp(14px,1.5vw,24px);font-weight:800;letter-spacing:.2vw;color:#1A3020;font-variant-numeric:tabular-nums}
+.dstr{font-size:clamp(7px,.65vw,11px);letter-spacing:.2vw;color:rgba(20,60,30,.45);text-transform:uppercase}
+.main{flex:1;overflow:hidden;display:flex;position:relative}
+.bot{height:4.5vh;min-height:26px;max-height:50px;display:flex;align-items:center;
+  justify-content:space-between;padding:0 3vw;border-top:1px solid rgba(20,60,30,.12);
+  flex-shrink:0;position:relative;z-index:10}
+.bot span{font-size:clamp(8px,.7vw,12px);letter-spacing:.15vw;color:rgba(20,60,30,.4);text-transform:uppercase}
+.card{background:var(--card);border:1px solid var(--brd);border-radius:clamp(6px,.8vw,14px);
+  padding:clamp(10px,1.8vh,24px) clamp(12px,1.8vw,26px)}
+.tag{font-size:clamp(8px,.7vw,12px);font-weight:800;letter-spacing:.3vw;color:var(--acc);text-transform:uppercase;margin-bottom:.4vh}
+.ld{display:flex;align-items:center;justify-content:center;flex:1;
+  font-size:clamp(11px,1.1vw,18px);letter-spacing:.2vw;color:rgba(20,60,30,.35);text-transform:uppercase}
+.scene{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.scene svg{width:100%;height:100%}
+.content{position:relative;z-index:2;flex:1;display:flex;overflow:hidden}
+
+@media (orientation:portrait){
+  .content{flex-direction:column!important}
+  .side{width:100%!important;flex-direction:row;align-items:center;justify-content:center;
+    gap:4vw;border-right:none!important;border-bottom:1px solid rgba(255,255,255,.08);
+    padding:2vh 3vw!important;flex-shrink:0}
+  .stag{font-size:clamp(9px,2.5vw,15px)!important;display:none}
+  .snum{font-size:clamp(44px,12vw,80px)!important}
+  .slbl{font-size:clamp(9px,2.5vw,14px)!important}
+  .right{flex:1;padding:2vh 4vw!important;justify-content:center}
+  .rcat{font-size:clamp(9px,2.5vw,14px)!important}
+  .rtitle{font-size:clamp(20px,5.5vw,42px)!important}
+  .rdetail{font-size:clamp(13px,3.5vw,22px)!important;max-width:100%!important}
+}
+</style>
+</head>
+<body>
+<div class="bar">
+  <div class="brand">
+    <div class="brand-dot"></div>
+    <span class="brand-name">ZÊNITE</span>
+    <span class="brand-sep">|</span>
+    <span class="brand-sub">Anúncios</span>
+  </div>
+  <span class="bar-title">Saúde & Bem-Estar</span>
+  <div class="clock-box">
+    <span id="clock" class="clock">--:--</span>
+    <span id="dstr" class="dstr"></span>
+  </div>
+</div>
+<style>
+.scene svg{width:100%;height:100%}
+.content{flex-direction:row}
+.side{width:28vw;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:2vh 2vw;gap:1.5vh;text-align:center;border-right:1px solid rgba(255,255,255,.07)}
+.stag{font-size:clamp(8px,.7vw,12px);font-weight:800;letter-spacing:.35vw;color:var(--acc);text-transform:uppercase}
+.snum{font-size:clamp(42px,7vw,110px);font-weight:900;line-height:1;letter-spacing:-.3vw;color:var(--acc);word-break:break-all}
+.slbl{font-size:clamp(8px,.8vw,13px);letter-spacing:.2vw;color:rgba(20,60,30,.4);text-transform:uppercase}
+.right{flex:1;display:flex;flex-direction:column;justify-content:center;padding:3vh 3.5vw;gap:1.8vh;color:#1A3020}
+.rcat{font-size:clamp(8px,.75vw,13px);font-weight:800;letter-spacing:.35vw;color:var(--acc);text-transform:uppercase}
+.rtitle{font-size:clamp(22px,3.2vw,52px);font-weight:900;line-height:1.18;color:#1A3020}
+.rdetail{font-size:clamp(13px,1.5vw,24px);color:rgba(20,60,30,.68);line-height:1.6;max-width:65vw}
+.ralert{font-size:clamp(10px,1vw,16px);color:var(--acc);border:1px solid var(--acc);
+  border-radius:.5vw;padding:.6vh 1.2vw;display:inline-block;opacity:.82;margin-top:.5vh}
+.prow{display:flex;align-items:center;gap:1.2vw;margin-top:1vh}
+.pwrap{flex:1;height:.45vh;min-height:2px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}
+.pbar{height:100%;background:#1E8C50;border-radius:2px}
+.pct{font-size:clamp(8px,.75vw,12px);letter-spacing:.2vw;color:rgba(20,60,30,.4);text-transform:uppercase;flex-shrink:0}
+
+@media (orientation:portrait){
+  .content{flex-direction:column!important}
+  .side{width:100%!important;flex-direction:row;align-items:center;justify-content:center;
+    gap:4vw;border-right:none!important;border-bottom:1px solid rgba(255,255,255,.08);
+    padding:2vh 3vw!important;flex-shrink:0}
+  .stag{font-size:clamp(9px,2.5vw,15px)!important;display:none}
+  .snum{font-size:clamp(44px,12vw,80px)!important}
+  .slbl{font-size:clamp(9px,2.5vw,14px)!important}
+  .right{flex:1;padding:2vh 4vw!important;justify-content:center}
+  .rcat{font-size:clamp(9px,2.5vw,14px)!important}
+  .rtitle{font-size:clamp(20px,5.5vw,42px)!important}
+  .rdetail{font-size:clamp(13px,3.5vw,22px)!important;max-width:100%!important}
+}
+</style>
+<div class="scene"><svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+<defs>
+  <radialGradient id="sg1" cx="20%" cy="50%" r="40%"><stop offset="0%" stop-color="#A8E6BE" stop-opacity=".28"/><stop offset="100%" stop-color="#A8E6BE" stop-opacity="0"/></radialGradient>
+  <radialGradient id="sg2" cx="80%" cy="60%" r="35%"><stop offset="0%" stop-color="#7DCBA0" stop-opacity=".18"/><stop offset="100%" stop-color="#7DCBA0" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="1920" height="1080" fill="#F7FAF7"/>
+<rect width="1920" height="1080" fill="url(#sg1)"/><rect width="1920" height="1080" fill="url(#sg2)"/>
+<g opacity=".06" fill="#1E8C50"><ellipse cx="1700" cy="200" rx="160" ry="60" transform="rotate(-30,1700,200)"/><ellipse cx="200" cy="700" rx="130" ry="50" transform="rotate(25,200,700)"/></g>
+</svg></div>
+<div class="main">
+  <div class="content">
+    <div class="side">
+      <div class="stag" id="stag">—</div>
+      <div class="snum" id="snum">—</div>
+      <div class="slbl" id="slbl">—</div>
+    </div>
+    <div class="right">
+      <div class="rcat" id="rcat">—</div>
+      <div class="rtitle" id="rtitle">—</div>
+      <div class="rdetail" id="rdetail">—</div>
+      <div id="ralert"></div>
+      <div class="prow">
+        <div class="pwrap"><div class="pbar" id="pbar"></div></div>
+        <div class="pct" id="pct">1/10</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="bot"><span>Saúde · Bem-Estar · Prevenção</span><span id="upd">—</span></div>
+<script>
+var D=[
+{cat:'Hidratação',num:'2L',lbl:'de água por dia',ttl:'Beba pelo menos 2 litros de água diariamente',dtl:'Desidratação causa cansaço, dor de cabeça e dificuldade de concentração. Mantenha uma garrafa sempre por perto.',alt:''},
+{cat:'Movimento',num:'30min',lbl:'de caminhada',ttl:'Caminhe 30 minutos por dia',dtl:'Reduz o risco de doenças cardíacas em até 35%. Três caminhadas de 10 minutos têm o mesmo efeito.',alt:''},
+{cat:'Sono',num:'7–9h',lbl:'por noite',ttl:'Durma entre 7 e 9 horas por noite',dtl:'Falta de sono está ligada a obesidade, diabetes e pressão alta. Durma e acorde no mesmo horário todos os dias.',alt:''},
+{cat:'Postura',num:'1h',lbl:'sentado → levantar',ttl:'Levante da cadeira a cada 1 hora',dtl:'Ficar sentado por longos períodos aumenta o risco de coluna e circulação. Um alongamento de 2 minutos já faz diferença.',alt:''},
+{cat:'Mente',num:'5min',lbl:'de respiração',ttl:'Pratique respiração profunda diariamente',dtl:'Inspire 4s, segure 4s, expire 6s. Ativa o sistema parassimpático e reduz o estresse na hora.',alt:''},
+{cat:'Prevenção',num:'1×/ano',lbl:'checkup médico',ttl:'Faça checkup médico anual',dtl:'Diabetes, hipertensão e colesterol alto não dão sintomas. O exame de rotina detecta antes que vire problema.',alt:'⚕️ Consulte sempre seu médico.'},
+{cat:'Pele',num:'FPS 50',lbl:'todos os dias',ttl:'Use protetor solar todos os dias',dtl:'O sol causa 80% do envelhecimento precoce. Use protetor mesmo em dias nublados — previne câncer de pele.',alt:''},
+{cat:'Visão',num:'20-20-20',lbl:'regra das telas',ttl:'Descanse os olhos a cada 20 minutos de tela',dtl:'A cada 20 minutos, olhe para algo a 20 metros por 20 segundos. Previne síndrome do olho seco e fadiga.',alt:''},
+{cat:'Coração',num:'120/80',lbl:'pressão ideal',ttl:'Controle a pressão arterial regularmente',dtl:'Hipertensão é a principal causa de AVC no Brasil. Medição gratuita nas farmácias. Ideal: abaixo de 120/80.',alt:'⚕️ Pressão alta frequente? Procure um médico.'},
+{cat:'Alimentação',num:'400g',lbl:'vegetais/frutas/dia',ttl:'Coma frutas e vegetais em todas as refeições',dtl:'OMS recomenda no mínimo 400g por dia. Protegem o coração, fortalecem imunidade e reduzem risco de câncer.',alt:''},
+];
+var idx=Math.floor(Math.random()*D.length),p=0,DUR=10;
+function show(){
+  var d=D[idx%D.length];
+  document.getElementById('stag').textContent=d.cat;
+  document.getElementById('snum').textContent=d.num;
+  document.getElementById('slbl').textContent=d.lbl;
+  document.getElementById('rcat').textContent=d.cat;
+  document.getElementById('rtitle').textContent=d.ttl;
+  document.getElementById('rdetail').textContent=d.dtl;
+  var al=document.getElementById('ralert');
+  if(d.alt){al.className='ralert';al.textContent=d.alt}else{al.className='';al.textContent=''}
+  document.getElementById('pct').textContent=(idx%D.length+1)+'/'+D.length;
+  document.getElementById('upd').textContent=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  p=0;
+}
+function tick(){p+=100/(DUR*10);if(p>=100){idx++;show()}document.getElementById('pbar').style.width=Math.min(p,100)+'%'}
+
+(function tick(){
+  var n=new Date();
+  var c=document.getElementById('clock');
+  var d=document.getElementById('dstr');
+  if(c)c.textContent=n.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  if(d)d.textContent=n.toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'short'}).replace('.','·').toUpperCase();
+  setTimeout(tick,1000);
+})();
+
+show();setInterval(tick,100);
+</script></body></html>

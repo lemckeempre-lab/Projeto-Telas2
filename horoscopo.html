@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Horóscopo do Dia – Zênite</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bar:#0A0820;--acc:#C4A020;--bg:#05040F;
+  --text:#EDF2FF;--muted:rgba(255,255,255,.5);--dim:rgba(255,255,255,.22);
+  --card:rgba(10,8,30,.7);--brd:rgba(150,120,200,.16)
+}
+html{font-size:clamp(12px,1.5vw,22px)}
+body{background:var(--bg);color:var(--text);font-family:"Helvetica Neue",Arial,sans-serif;
+  width:100vw;height:100vh;display:flex;flex-direction:column;overflow:hidden;
+  -webkit-text-size-adjust:100%}
+.bar{height:7vh;min-height:44px;max-height:72px;background:var(--bar);
+  display:flex;align-items:center;justify-content:space-between;padding:0 3vw;
+  flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.07);position:relative;z-index:10}
+.brand{display:flex;align-items:center;gap:.6vw}
+.brand-dot{width:.7vw;height:.7vw;min-width:6px;min-height:6px;border-radius:50%;background:var(--text);opacity:.85}
+.brand-name{font-size:clamp(11px,1.1vw,18px);font-weight:800;letter-spacing:.35vw;color:var(--text);text-transform:uppercase}
+.brand-sep{color:rgba(255,255,255,.2);margin:0 .3vw}
+.brand-sub{font-size:clamp(8px,.8vw,13px);letter-spacing:.25vw;color:rgba(255,255,255,.45);text-transform:uppercase}
+.bar-title{font-size:clamp(9px,.85vw,14px);letter-spacing:.3vw;color:rgba(255,255,255,.35);text-transform:uppercase}
+.clock-box{display:flex;flex-direction:column;align-items:flex-end;gap:.2vh}
+.clock{font-size:clamp(14px,1.5vw,24px);font-weight:800;letter-spacing:.2vw;color:var(--text);font-variant-numeric:tabular-nums}
+.dstr{font-size:clamp(7px,.65vw,11px);letter-spacing:.2vw;color:rgba(255,255,255,.3);text-transform:uppercase}
+.main{flex:1;overflow:hidden;display:flex;position:relative}
+.bot{height:4.5vh;min-height:26px;max-height:50px;display:flex;align-items:center;
+  justify-content:space-between;padding:0 3vw;border-top:1px solid rgba(255,255,255,.06);
+  flex-shrink:0;position:relative;z-index:10}
+.bot span{font-size:clamp(8px,.7vw,12px);letter-spacing:.15vw;color:rgba(255,255,255,.18);text-transform:uppercase}
+.card{background:var(--card);border:1px solid var(--brd);border-radius:clamp(6px,.8vw,14px);
+  padding:clamp(10px,1.8vh,24px) clamp(12px,1.8vw,26px)}
+.tag{font-size:clamp(8px,.7vw,12px);font-weight:800;letter-spacing:.3vw;color:var(--acc);text-transform:uppercase;margin-bottom:.4vh}
+.ld{display:flex;align-items:center;justify-content:center;flex:1;
+  font-size:clamp(11px,1.1vw,18px);letter-spacing:.2vw;color:rgba(255,255,255,.22);text-transform:uppercase}
+.scene{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.scene svg{width:100%;height:100%}
+.content{position:relative;z-index:2;flex:1;display:flex;overflow:hidden}
+
+@media (orientation:portrait){
+  .grid{grid-template-columns:repeat(3,1fr)!important;gap:clamp(5px,1.5vw,10px)!important}
+  .sc-i{font-size:clamp(18px,4.5vw,32px)!important}
+  .sc-n{font-size:clamp(10px,2.5vw,16px)!important}
+  .sc-p{font-size:clamp(7px,1.5vw,11px)!important}
+  .sc-s{font-size:clamp(8px,1.8vw,13px)!important}
+  .sc-t{font-size:clamp(8px,1.8vw,13px)!important}
+  .sc{padding:clamp(6px,1.5vw,12px)!important;gap:.3vh!important}
+  .hdate{font-size:clamp(9px,2vw,14px)!important}
+}
+</style>
+</head>
+<body>
+<div class="bar">
+  <div class="brand">
+    <div class="brand-dot"></div>
+    <span class="brand-name">ZÊNITE</span>
+    <span class="brand-sep">|</span>
+    <span class="brand-sub">Anúncios</span>
+  </div>
+  <span class="bar-title">Horóscopo do Dia</span>
+  <div class="clock-box">
+    <span id="clock" class="clock">--:--</span>
+    <span id="dstr" class="dstr"></span>
+  </div>
+</div>
+<style>
+.scene svg{width:100%;height:100%}
+.content{flex-direction:column;padding:1.5vh 3vw 0}
+.hdate{font-size:clamp(8px,.75vw,13px);letter-spacing:.35vw;color:rgba(196,160,32,.5);text-transform:uppercase;
+  text-align:center;padding-bottom:1.2vh;border-bottom:1px solid rgba(196,160,32,.12);flex-shrink:0}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(6px,.9vw,14px);flex:1;overflow:hidden;padding-bottom:1vh}
+.sc{background:rgba(10,8,30,.7);border:1px solid rgba(150,120,200,.16);border-radius:clamp(6px,.8vw,14px);
+  padding:clamp(8px,1.2vh,18px) clamp(8px,1vw,14px);display:flex;flex-direction:column;align-items:center;gap:.5vh;text-align:center}
+.sc-i{font-size:clamp(20px,2.8vw,42px);line-height:1}
+.sc-n{font-size:clamp(11px,1.2vw,18px);font-weight:800;color:#EDE8FF}
+.sc-p{font-size:clamp(7px,.65vw,11px);color:rgba(200,180,255,.35);letter-spacing:.05vw}
+.sc-s{font-size:clamp(9px,1vw,15px);color:#C4A020;letter-spacing:.1vw}
+.sc-t{font-size:clamp(9px,.9vw,14px);color:rgba(200,190,255,.55);line-height:1.35;text-align:center}
+
+@media (orientation:portrait){
+  .grid{grid-template-columns:repeat(3,1fr)!important;gap:clamp(5px,1.5vw,10px)!important}
+  .sc-i{font-size:clamp(18px,4.5vw,32px)!important}
+  .sc-n{font-size:clamp(10px,2.5vw,16px)!important}
+  .sc-p{font-size:clamp(7px,1.5vw,11px)!important}
+  .sc-s{font-size:clamp(8px,1.8vw,13px)!important}
+  .sc-t{font-size:clamp(8px,1.8vw,13px)!important}
+  .sc{padding:clamp(6px,1.5vw,12px)!important;gap:.3vh!important}
+  .hdate{font-size:clamp(9px,2vw,14px)!important}
+}
+</style>
+<div class="scene"><svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+<defs><radialGradient id="cs" cx="50%" cy="40%" r="56%"><stop offset="0%" stop-color="#1A0A40" stop-opacity=".75"/><stop offset="100%" stop-color="#05040F" stop-opacity="0"/></radialGradient></defs>
+<rect width="1920" height="1080" fill="#05040F"/>
+<rect width="1920" height="1080" fill="url(#cs)"/>
+<g fill="#fff"><circle cx="96" cy="82" r="1.5" opacity=".8"/><circle cx="234" cy="156" r="1" opacity=".5"/><circle cx="412" cy="68" r="1.5" opacity=".7"/><circle cx="720" cy="95" r="2" opacity=".9"/><circle cx="890" cy="48" r="1" opacity=".5"/><circle cx="1050" cy="130" r="1.5" opacity=".7"/><circle cx="1400" cy="160" r="2" opacity=".8"/><circle cx="1560" cy="50" r="1.5" opacity=".7"/><circle cx="1800" cy="105" r="1.5" opacity=".8"/></g>
+<g stroke="#C4A020" stroke-width=".8" opacity=".16"><line x1="96" y1="82" x2="234" y2="156"/><line x1="234" y1="156" x2="412" y2="68"/><line x1="720" y1="95" x2="890" y2="48"/><line x1="890" y1="48" x2="1050" y2="130"/><line x1="1400" y1="160" x2="1560" y2="50"/></g>
+</svg></div>
+<div class="main">
+  <div class="content">
+    <div class="hdate" id="hd"></div>
+    <div class="grid" id="grid"></div>
+  </div>
+</div>
+<div class="bot"><span>Entretenimento — consulte um especialista para decisões importantes</span><span id="upd">—</span></div>
+<script>
+var SG=[{n:'Áries',i:'♈',p:'21/03–19/04'},{n:'Touro',i:'♉',p:'20/04–20/05'},{n:'Gêmeos',i:'♊',p:'21/05–20/06'},{n:'Câncer',i:'♋',p:'21/06–22/07'},{n:'Leão',i:'♌',p:'23/07–22/08'},{n:'Virgem',i:'♍',p:'23/08–22/09'},{n:'Libra',i:'♎',p:'23/09–22/10'},{n:'Escorpião',i:'♏',p:'23/10–21/11'},{n:'Sagitário',i:'♐',p:'22/11–21/12'},{n:'Capricórnio',i:'♑',p:'22/12–19/01'},{n:'Aquário',i:'♒',p:'20/01–18/02'},{n:'Peixes',i:'♓',p:'19/02–20/03'}];
+var PV=[
+['Novos começos favorecidos.','Finanças em destaque.','Comunicação fluida.','Lar traz clareza.','Energia alta.','Organização é chave.','Harmonia nos vínculos.','Transformações positivas.','Otimismo guia o dia.','Disciplina rende frutos.','Inovação em alta.','Intuição aguçada.'],
+['Energia renovada.','Invista em si mesmo.','Novas ideias surgem.','Amor correspondido.','Reconhecimento à vista.','Detalhes importam.','Decisões mais claras.','Revelações positivas.','Horizonte se expande.','Metas avançam bem.','Amizades fortalecem.','Sonhos revelam caminhos.'],
+['Liderança atrai chances.','Estabilidade favorece.','Aprenda algo novo.','Ouça o coração.','Criatividade em alta.','Saúde em foco.','Parcerias prosperam.','Crescimento emocional.','Sabedoria ilumina.','Persistência vence.','Projetos coletivos.','Compaixão abre portas.'],
+['Coragem para decidir.','Paciência traz paz.','Vínculos se fortalecem.','Lar é porto seguro.','Generosidade volta.','Análise evita erros.','Equilíbrio é essencial.','Mistérios se revelam.','Aventuras trazem sorte.','Esforço reconhecido.','Independência cresce.','Imaginação fértil.'],
+['Conquistas rápidas.','Conforto satisfaz.','Projetos avançam.','Intuição alta.','Aproveite o momento.','Qualidade garantida.','Diplomacia resolve.','Regeneração em alta.','Filosofia ilumina.','Ambição equilibrada.','Tecnologia a favor.','Amor traz leveza.'],
+['Soluções criativas.','Calma vence tudo.','Curiosidade impulsiona.','Memórias fortalecem.','Carisma atrai.','Método dá resultados.','Justiça guia escolhas.','Revelações libertam.','Explore o novo.','Planejamento vale.','Originalidade transforma.','Paz interior cresce.'],
+['Renovação positiva.','Gratidão traz mais.','Clareza valorizada.','Laços afetivos nutrem.','Entusiasmo contagia.','Foco no essencial.','Beleza nas pequenas coisas.','Coragem revela forças.','Liberdade renova.','Tradição sustenta.','Solidariedade abre caminhos.','Fé e esperança iluminam.']
+];
+var ST=['★★★★★','★★★★☆','★★★☆☆','★★★★★','★★★☆☆','★★★★☆','★★★★★','★★★☆☆','★★★★★','★★★★☆','★★★☆☆','★★★★★'];
+function render(){
+  var h=new Date();var p=PV[h.getDay()];
+  document.getElementById('hd').textContent=h.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'}).toUpperCase();
+  document.getElementById('grid').innerHTML=SG.map(function(s,i){
+    return '<div class="sc"><div class="sc-i">'+s.i+'</div><div class="sc-n">'+s.n+'</div>'
+      +'<div class="sc-p">'+s.p+'</div><div class="sc-s">'+ST[i]+'</div><div class="sc-t">'+p[i]+'</div></div>';
+  }).join('');
+  document.getElementById('upd').textContent=h.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+}
+
+(function tick(){
+  var n=new Date();
+  var c=document.getElementById('clock');
+  var d=document.getElementById('dstr');
+  if(c)c.textContent=n.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  if(d)d.textContent=n.toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'short'}).replace('.','·').toUpperCase();
+  setTimeout(tick,1000);
+})();
+
+render();setInterval(render,60*60*1000);
+</script></body></html>

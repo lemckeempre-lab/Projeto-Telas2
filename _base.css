@@ -1,0 +1,54 @@
+
+/* ── RESET TV-FIRST ─────────────────────────────── */
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-size:clamp(12px,1.5vw,22px)} /* 1rem = escala com a TV */
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:"Helvetica Neue",Arial,sans-serif;
+  width:100vw;height:100vh;
+  display:flex;flex-direction:column;
+  overflow:hidden;
+  /* evita zoom indesejado em TVs Android */
+  -webkit-text-size-adjust:100%;
+}
+
+/* ── TOPBAR ─────────────────────────────────────── */
+.bar{
+  height:7vh;min-height:44px;max-height:72px;
+  background:var(--bar);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 3vw;
+  flex-shrink:0;
+  border-bottom:1px solid rgba(255,255,255,.07)
+}
+.brand{display:flex;align-items:center;gap:.6vw}
+.brand-dot{width:.7vw;height:.7vw;min-width:6px;min-height:6px;border-radius:50%;background:var(--text);opacity:.85}
+.brand-name{font-size:clamp(11px,1.1vw,18px);font-weight:800;letter-spacing:.4vw;color:var(--text);text-transform:uppercase}
+.brand-sep{color:rgba(255,255,255,.2);margin:0 .3vw}
+.brand-sub{font-size:clamp(8px,.8vw,13px);letter-spacing:.25vw;color:rgba(255,255,255,.45);text-transform:uppercase}
+.bar-title{font-size:clamp(9px,.85vw,14px);letter-spacing:.3vw;color:rgba(255,255,255,.35);text-transform:uppercase}
+.clock-box{display:flex;flex-direction:column;align-items:flex-end;gap:.2vh}
+.clock{font-size:clamp(14px,1.5vw,24px);font-weight:800;letter-spacing:.25vw;color:var(--text);font-variant-numeric:tabular-nums}
+.dstr{font-size:clamp(7px,.65vw,11px);letter-spacing:.2vw;color:rgba(255,255,255,.3);text-transform:uppercase}
+
+/* ── MAIN ───────────────────────────────────────── */
+.main{flex:1;overflow:hidden;display:flex}
+
+/* ── BOTTOM ─────────────────────────────────────── */
+.bot{
+  height:4.5vh;min-height:28px;max-height:52px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 3vw;
+  border-top:1px solid rgba(255,255,255,.06);
+  flex-shrink:0
+}
+.bot span{font-size:clamp(8px,.75vw,13px);letter-spacing:.15vw;color:rgba(255,255,255,.2);text-transform:uppercase}
+
+/* ── UTILITÁRIOS ─────────────────────────────────── */
+.card{background:var(--card);border:1px solid var(--brd);border-radius:clamp(6px,.8vw,14px);padding:clamp(10px,1.5vh,22px) clamp(12px,1.5vw,24px)}
+.tag{font-size:clamp(8px,.7vw,12px);font-weight:800;letter-spacing:.3vw;color:var(--acc);text-transform:uppercase}
+.prog-wrap{width:100%;height:.4vh;min-height:2px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;margin-top:1vh}
+.prog-bar{height:100%;background:var(--acc);border-radius:2px}
+.empty-msg{display:flex;align-items:center;justify-content:center;flex:1;font-size:clamp(12px,1.2vw,20px);letter-spacing:.2vw;color:rgba(255,255,255,.25);text-transform:uppercase}
+

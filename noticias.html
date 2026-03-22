@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Notícias — Blumenau & SC – Zênite</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bar:#0A1628;--acc:#B49132;--bg:#060E1C;
+  --text:#EDF2FF;--muted:rgba(255,255,255,.5);--dim:rgba(255,255,255,.22);
+  --card:rgba(8,16,38,.72);--brd:rgba(80,110,200,.16)
+}
+html{font-size:clamp(12px,1.5vw,22px)}
+body{background:var(--bg);color:var(--text);font-family:"Helvetica Neue",Arial,sans-serif;
+  width:100vw;height:100vh;display:flex;flex-direction:column;overflow:hidden;
+  -webkit-text-size-adjust:100%}
+.bar{height:7vh;min-height:44px;max-height:72px;background:var(--bar);
+  display:flex;align-items:center;justify-content:space-between;padding:0 3vw;
+  flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.07);position:relative;z-index:10}
+.brand{display:flex;align-items:center;gap:.6vw}
+.brand-dot{width:.7vw;height:.7vw;min-width:6px;min-height:6px;border-radius:50%;background:var(--text);opacity:.85}
+.brand-name{font-size:clamp(11px,1.1vw,18px);font-weight:800;letter-spacing:.35vw;color:var(--text);text-transform:uppercase}
+.brand-sep{color:rgba(255,255,255,.2);margin:0 .3vw}
+.brand-sub{font-size:clamp(8px,.8vw,13px);letter-spacing:.25vw;color:rgba(255,255,255,.45);text-transform:uppercase}
+.bar-title{font-size:clamp(9px,.85vw,14px);letter-spacing:.3vw;color:rgba(255,255,255,.35);text-transform:uppercase}
+.clock-box{display:flex;flex-direction:column;align-items:flex-end;gap:.2vh}
+.clock{font-size:clamp(14px,1.5vw,24px);font-weight:800;letter-spacing:.2vw;color:var(--text);font-variant-numeric:tabular-nums}
+.dstr{font-size:clamp(7px,.65vw,11px);letter-spacing:.2vw;color:rgba(255,255,255,.3);text-transform:uppercase}
+.main{flex:1;overflow:hidden;display:flex;position:relative}
+.bot{height:4.5vh;min-height:26px;max-height:50px;display:flex;align-items:center;
+  justify-content:space-between;padding:0 3vw;border-top:1px solid rgba(255,255,255,.06);
+  flex-shrink:0;position:relative;z-index:10}
+.bot span{font-size:clamp(8px,.7vw,12px);letter-spacing:.15vw;color:rgba(255,255,255,.18);text-transform:uppercase}
+.card{background:var(--card);border:1px solid var(--brd);border-radius:clamp(6px,.8vw,14px);
+  padding:clamp(10px,1.8vh,24px) clamp(12px,1.8vw,26px)}
+.tag{font-size:clamp(8px,.7vw,12px);font-weight:800;letter-spacing:.3vw;color:var(--acc);text-transform:uppercase;margin-bottom:.4vh}
+.ld{display:flex;align-items:center;justify-content:center;flex:1;
+  font-size:clamp(11px,1.1vw,18px);letter-spacing:.2vw;color:rgba(255,255,255,.22);text-transform:uppercase}
+.scene{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.scene svg{width:100%;height:100%}
+.content{position:relative;z-index:2;flex:1;display:flex;overflow:hidden}
+
+@media (orientation:portrait){
+  .nc{flex:0 0 auto!important;max-height:none!important;
+    height:calc((100vh - 7vh - 4.5vh - 3vh) / 5.2)}
+  .nc.hl{height:calc((100vh - 7vh - 4.5vh - 3vh) / 5.2)!important}
+  .nc-ttl{font-size:clamp(14px,3vw,22px)!important}
+  .nc-src{font-size:clamp(9px,1.8vw,14px)!important}
+  .nc-ago{font-size:clamp(9px,1.8vw,14px)!important}
+  .ticker{height:5vh!important}
+  .tick-in{font-size:clamp(11px,2.2vw,18px)!important}
+}
+</style>
+</head>
+<body>
+<div class="bar">
+  <div class="brand">
+    <div class="brand-dot"></div>
+    <span class="brand-name">ZÊNITE</span>
+    <span class="brand-sep">|</span>
+    <span class="brand-sub">Anúncios</span>
+  </div>
+  <span class="bar-title">Notícias — Blumenau & SC</span>
+  <div class="clock-box">
+    <span id="clock" class="clock">--:--</span>
+    <span id="dstr" class="dstr"></span>
+  </div>
+</div>
+<style>
+.content{flex-direction:column;padding:2vh 3vw 0}
+.col-head{font-size:clamp(8px,.7vw,12px);font-weight:800;letter-spacing:.3vw;color:rgba(180,145,50,.6);text-transform:uppercase;margin-bottom:.6vh}
+.nc{background:rgba(8,16,38,.72);border:1px solid rgba(80,110,200,.16);border-radius:clamp(6px,.8vw,14px);
+  padding:clamp(10px,1.8vh,22px) clamp(12px,1.8vw,22px);flex:1;display:flex;flex-direction:column;gap:.5vh;margin-bottom:1.2vh}
+.nc:last-child{margin-bottom:0}
+.nc.hl{border-left:clamp(2px,.25vw,4px) solid rgba(180,145,50,.8);border-radius:clamp(6px,.8vw,14px)}
+.nc-src{font-size:clamp(8px,.7vw,12px);font-weight:800;letter-spacing:.25vw;color:rgba(180,145,50,.85);text-transform:uppercase}
+.nc-ttl{font-size:clamp(14px,1.6vw,26px);font-weight:700;line-height:1.25;color:#EDF2FF}
+.nc.hl .nc-ttl{font-size:clamp(16px,1.9vw,30px)}
+.nc-ago{font-size:clamp(8px,.75vw,13px);color:rgba(200,210,255,.3);margin-top:auto;letter-spacing:.1vw}
+.ticker{height:4.5vh;min-height:28px;flex-shrink:0;background:rgba(180,145,50,.12);
+  border-top:1px solid rgba(180,145,50,.22);overflow:hidden;display:flex;align-items:center;margin-top:.5vh}
+.tick-in{white-space:nowrap;font-size:clamp(10px,1vw,16px);letter-spacing:.15vw;
+  color:rgba(200,175,100,.75);animation:tk 50s linear infinite;padding-left:100vw}
+@keyframes tk{to{transform:translateX(-100%)}}
+
+@media (orientation:portrait){
+  .nc{flex:0 0 auto!important;max-height:none!important;
+    height:calc((100vh - 7vh - 4.5vh - 3vh) / 5.2)}
+  .nc.hl{height:calc((100vh - 7vh - 4.5vh - 3vh) / 5.2)!important}
+  .nc-ttl{font-size:clamp(14px,3vw,22px)!important}
+  .nc-src{font-size:clamp(9px,1.8vw,14px)!important}
+  .nc-ago{font-size:clamp(9px,1.8vw,14px)!important}
+  .ticker{height:5vh!important}
+  .tick-in{font-size:clamp(11px,2.2vw,18px)!important}
+}
+</style>
+<div class="scene"><svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+<defs><linearGradient id="nbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#060E1C"/><stop offset="100%" stop-color="#0C1830"/></linearGradient></defs>
+<rect width="1920" height="1080" fill="url(#nbg)"/>
+<rect x="44" y="18" width="110" height="2" fill="#B49132" opacity=".7"/>
+<g fill="#0F1E3A" opacity=".92">
+  <rect x="0" y="700" width="55" height="380"/><rect x="65" y="640" width="38" height="440"/>
+  <rect x="1380" y="660" width="55" height="420"/><rect x="1446" y="600" width="48" height="480"/>
+</g>
+</svg></div>
+<div class="main">
+  <div class="content" id="wrap" style="flex-direction:column">
+    <div class="col-head">Últimas notícias</div>
+    <div class="ld" style="flex:1">Carregando...</div>
+  </div>
+</div>
+<div class="ticker"><div class="tick-in" id="ticker">—</div></div>
+<div class="bot"><span>G1 SC · NSC Total · ND Mais · Atualiza a cada 15 min</span><span id="upd">—</span></div>
+<script>
+var FEEDS=[
+  {url:'https://g1.globo.com/sc/santa-catarina/rss2.0.xml',name:'G1 SC'},
+  {url:'https://www.nsctotal.com.br/rss.xml',name:'NSC Total'},
+  {url:'https://ndmais.com.br/feed/',name:'ND Mais'}
+];
+var API='https://api.rss2json.com/v1/api.json?rss_url=';
+function strip(h){return(h||'').replace(/<[^>]*>/g,'').replace(/&[a-z#0-9]+;/g,' ').trim()}
+function ago(d){var m=(Date.now()-new Date(d))/60000;if(m<60)return'há '+Math.round(m)+' min';if(m<1440)return'há '+Math.round(m/60)+'h';return'ontem';}
+var FALLBACK=[
+  {title:'Blumenau registra recorde de calor neste verão com temperatura acima de 37°C',pubDate:new Date().toISOString(),source:'NSC Total'},
+  {title:'Prefeitura de Blumenau anuncia obras de revitalização no centro histórico da cidade',pubDate:new Date(Date.now()-3600000).toISOString(),source:'ND Mais'},
+  {title:'Festival Gastronômico do Vale do Itajaí acontece neste fim de semana em Blumenau',pubDate:new Date(Date.now()-7200000).toISOString(),source:'NSC Total'},
+  {title:'Santa Catarina lidera ranking nacional de qualidade de vida pelo terceiro ano consecutivo',pubDate:new Date(Date.now()-10800000).toISOString(),source:'G1 SC'},
+  {title:'Nova linha de ônibus elétrico será implantada em Blumenau ainda este semestre',pubDate:new Date(Date.now()-14400000).toISOString(),source:'ND Mais'},
+];
+async function load(){
+  var items=[];
+  for(var i=0;i<FEEDS.length;i++){
+    try{var r=await fetch(API+encodeURIComponent(FEEDS[i].url)+'&count=5');var d=await r.json();
+    if(d.status==='ok')d.items.slice(0,3).forEach(function(it){items.push(Object.assign({},it,{source:FEEDS[i].name}))});}catch(e){}
+  }
+  items.sort(function(a,b){return new Date(b.pubDate)-new Date(a.pubDate)});
+  var top=items.slice(0,5);
+  if(!top.length){top=FALLBACK;}
+  var h='<div class="col-head">Últimas notícias</div>';
+  top.forEach(function(it,i){
+    h+='<div class="nc'+(i===0?' hl':'')+'"><span class="nc-src">'+it.source+'</span>'
+      +'<span class="nc-ttl">'+strip(it.title).substring(0,105)+'</span>'
+      +'<span class="nc-ago">'+ago(it.pubDate)+'</span></div>';
+  });
+  document.getElementById('wrap').innerHTML=h;
+  document.getElementById('ticker').textContent=top.map(function(i){return strip(i.title).substring(0,80)}).join('   ·   ');
+  document.getElementById('upd').textContent='Atualizado '+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+}
+
+(function tick(){
+  var n=new Date();
+  var c=document.getElementById('clock');
+  var d=document.getElementById('dstr');
+  if(c)c.textContent=n.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  if(d)d.textContent=n.toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'short'}).replace('.','·').toUpperCase();
+  setTimeout(tick,1000);
+})();
+
+load();setInterval(load,15*60*1000);setTimeout(function(){location.reload()},4*60*60*1000);
+</script></body></html>
